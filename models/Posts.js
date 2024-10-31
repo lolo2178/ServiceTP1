@@ -1,6 +1,6 @@
 import Model from './model.js';
 
-export default class Posts extends Model {
+export default class Post extends Model {
     constructor() {
         super(false /* secured Id */);
 
