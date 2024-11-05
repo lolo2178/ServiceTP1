@@ -18,13 +18,5 @@
     "properties-reader": "^2.1.1",
     "query-string": "^8.1.0",
     "uuid": "^8.3.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lolo2178/ServiceTP1.git"
-  },
-  "bugs": {
-    "url": "https://github.com/lolo2178/ServiceTP1/issues"
-  },
-  "homepage": "https://github.com/lolo2178/ServiceTP1#readme"
+  }
 }
