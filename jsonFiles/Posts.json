@@ -1,5 +1,10 @@
 [
     {
-        "Title": "test"
+        "id": 1,
+        "Title": "test",
+        "Text" : "nouvelle #1",
+        "Category" : "tech",
+        "Image" : "limage.png",
+        "Creation" : 0
     }
 ]
