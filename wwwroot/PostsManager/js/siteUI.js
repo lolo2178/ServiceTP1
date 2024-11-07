@@ -3,13 +3,13 @@ let contentScrollPosition = 0;
 Init_UI();
 
 function Init_UI() {
-    renderContacts();
-    $('#createContact').on("click", async function () {
+    renderPosts();
+    $('#createPosts').on("click", async function () {
         saveContentScrollPosition();
-        renderCreateContactForm();
+        renderCreatePostsForm();
     });
     $('#abort').on("click", async function () {
-        renderContacts();
+        renderPosts();
     });
     $('#aboutCmd').on("click", function () {
         renderAbout();
@@ -19,16 +19,16 @@ function Init_UI() {
 function renderAbout() {
     saveContentScrollPosition();
     eraseContent();
-    $("#createContact").hide();
+    $("#createPosts").hide();
     $("#abort").show();
     $("#actionTitle").text("À propos...");
     $("#content").append(
         $(`
             <div class="aboutContainer">
-                <h2>Gestionnaire de contacts</h2>
+                <h2>Gestionnaire de Posts</h2>
                 <hr>
                 <p>
-                    Petite application de gestion de contacts à titre de démonstration
+                    Petite application de gestion de Posts à titre de démonstration
                     d'interface utilisateur monopage réactive.
                 </p>
                 <p>
@@ -40,28 +40,28 @@ function renderAbout() {
             </div>
         `))
 }
-async function renderContacts() {
+async function renderPosts() {
     showWaitingGif();
-    $("#actionTitle").text("Liste des contacts");
-    $("#createContact").show();
+    $("#actionTitle").text("Liste des Posts");
+    $("#createPosts").show();
     $("#abort").hide();
-    let contacts = await API_GetContacts();
+    let Posts = await API_GetPosts();
     eraseContent();
-    if (contacts !== null) {
-        contacts.forEach(contact => {
-            $("#content").append(renderContact(contact));
+    if (Posts !== null) {
+        Posts.forEach(posts => {
+            $("#content").append(renderPosts(posts));
         });
         restoreContentScrollPosition();
         // Attached click events on command icons
         $(".editCmd").on("click", function () {
             saveContentScrollPosition();
-            renderEditContactForm($(this).attr("editContactId"));
+            renderEditPostsForm($(this).attr("editPostsId"));
         });
         $(".deleteCmd").on("click", function () {
             saveContentScrollPosition();
-            renderDeleteContactForm($(this).attr("deleteContactId"));
+            renderDeletePostsForm($(this).attr("deletePostsId"));
         });
-        $(".contactRow").on("click", function (e) { e.preventDefault(); })
+        $(".postsRow").on("click", function (e) { e.preventDefault(); })
     } else {
         renderError("Service introuvable");
     }
@@ -89,79 +89,79 @@ function renderError(message) {
         `)
     );
 }
-function renderCreateContactForm() {
-    renderContactForm();
+function renderCreatePostsForm() {
+    renderPostsForm();
 }
-async function renderEditContactForm(id) {
+async function renderEditPostsForm(id) {
     showWaitingGif();
-    let contact = await API_GetContact(id);
-    if (contact !== null)
-        renderContactForm(contact);
+    let posts = await API_GetPosts(id);
+    if (posts !== null)
+        renderPostsForm(posts);
     else
-        renderError("Contact introuvable!");
+        renderError("Posts introuvable!");
 }
-async function renderDeleteContactForm(id) {
+async function renderDeletePostsForm(id) {
     showWaitingGif();
-    $("#createContact").hide();
+    $("#createPosts").hide();
     $("#abort").show();
     $("#actionTitle").text("Retrait");
-    let contact = await API_GetContact(id);
+    let posts = await API_GetPosts(id);
     eraseContent();
-    if (contact !== null) {
+    if (posts !== null) {
         $("#content").append(`
-        <div class="contactdeleteForm">
-            <h4>Effacer le contact suivant?</h4>
+        <div class="postsdeleteForm">
+            <h4>Effacer le posts suivant?</h4>
             <br>
-            <div class="contactRow" contact_id=${contact.Id}">
-                <div class="contactContainer">
-                    <div class="contactLayout">
-                        <div class="contactName">${contact.Name}</div>
-                        <div class="contactPhone">${contact.Phone}</div>
-                        <div class="contactEmail">${contact.Email}</div>
+            <div class="postsRow" posts_id=${posts.Id}">
+                <div class="postsContainer">
+                    <div class="postsLayout">
+                        <div class="postsName">${posts.Name}</div>
+                        <div class="postsPhone">${posts.Phone}</div>
+                        <div class="postsEmail">${posts.Email}</div>
                     </div>
                 </div>  
             </div>   
             <br>
-            <input type="button" value="Effacer" id="deleteContact" class="btn btn-primary">
+            <input type="button" value="Effacer" id="deletePosts" class="btn btn-primary">
             <input type="button" value="Annuler" id="cancel" class="btn btn-secondary">
         </div>    
         `);
-        $('#deleteContact').on("click", async function () {
+        $('#deletePosts').on("click", async function () {
             showWaitingGif();
-            let result = await API_DeleteContact(contact.Id);
+            let result = await API_DeletePosts(posts.Id);
             if (result)
-                renderContacts();
+                renderPosts();
             else
                 renderError("Une erreur est survenue!");
         });
         $('#cancel').on("click", function () {
-            renderContacts();
+            renderPosts();
         });
     } else {
-        renderError("Contact introuvable!");
+        renderError("Posts introuvable!");
     }
 }
-function newContact() {
-    contact = {};
-    contact.Id = 0;
-    contact.Name = "";
-    contact.Phone = "";
-    contact.Email = "";
-    return contact;
+function newPosts() {
+    posts = {};
+    posts.Id = 0;
+    posts.Name = "";
+    posts.Phone = "";
+    posts.Email = "";
+    return posts;
 }
-function renderContactForm(contact = null) {
-    $("#createContact").hide();
+function renderPostsForm(posts = null) {
+    $("#createPosts").hide();
     $("#abort").show();
     eraseContent();
-    let create = contact == null;
+    let create = posts == null;
     if (create) {
-        contact = newContact();
-        contact.Avatar = "images/no-avatar.png";
+        posts = newPosts();
+        posts.Avatar = "images/no-avatar.png";
     }
     $("#actionTitle").text(create ? "Création" : "Modification");
     $("#content").append(`
-        <form class="form" id="contactForm">
-            <input type="hidden" name="Id" value="${contact.Id}"/>
+        <form class="form" id="postsForm">
+            <input type="hidden" name="Id" value="${posts.Id}"/>
 
             <label for="Name" class="form-label">Nom </label>
             <input 
@@ -172,7 +172,7 @@ function renderContactForm(contact = null) {
                 required
                 RequireMessage="Veuillez entrer un nom"
                 InvalidMessage="Le nom comporte un caractère illégal" 
-                value="${contact.Name}"
+                value="${posts.Name}"
             />
             <label for="Phone" class="form-label">Téléphone </label>
             <input
@@ -183,7 +183,7 @@ function renderContactForm(contact = null) {
                 required
                 RequireMessage="Veuillez entrer votre téléphone" 
                 InvalidMessage="Veuillez entrer un téléphone valide"
-                value="${contact.Phone}" 
+                value="${posts.Phone}" 
             />
             <label for="Email" class="form-label">Courriel </label>
             <input 
@@ -194,35 +194,35 @@ function renderContactForm(contact = null) {
                 required
                 RequireMessage="Veuillez entrer votre courriel" 
                 InvalidMessage="Veuillez entrer un courriel valide"
-                value="${contact.Email}"
+                value="${posts.Email}"
             />
             <!-- nécessite le fichier javascript 'imageControl.js' -->
             <label class="form-label">Avatar </label>
             <div   class='imageUploader' 
                    newImage='${create}' 
                    controlId='Avatar' 
-                   imageSrc='${contact.Avatar}' 
+                   imageSrc='${posts.Avatar}' 
                    waitingImage="Loading_icon.gif">
             </div>
             <hr>
-            <input type="submit" value="Enregistrer" id="saveContact" class="btn btn-primary">
+            <input type="submit" value="Enregistrer" id="savePosts" class="btn btn-primary">
             <input type="button" value="Annuler" id="cancel" class="btn btn-secondary">
         </form>
     `);
     initImageUploaders();
     initFormValidation(); // important do to after all html injection!
-    $('#contactForm').on("submit", async function (event) {
+    $('#postsForm').on("submit", async function (event) {
         event.preventDefault();
-        let contact = getFormData($("#contactForm"));
+        let posts = getFormData($("#postsForm"));
         showWaitingGif();
-        let result = await API_SaveContact(contact, create);
+        let result = await API_SavePosts(posts, create);
         if (result)
-            renderContacts();
+            renderPosts();
         else
             renderError("Une erreur est survenue! " + API_getcurrentHttpError());
     });
     $('#cancel').on("click", function () {
-        renderContacts();
+        renderPosts();
     });
 }
 
@@ -235,21 +235,20 @@ function getFormData($form) {
     return jsonObject;
 }
 
-function renderContact(contact) {
+function renderPosts(posts) {
     return $(`
-     <div class="contactRow" contact_id=${contact.Id}">
-        <div class="contactContainer noselect">
-            <div class="contactLayout">
-                 <div class="avatar" style="background-image:url('${contact.Avatar}')"></div>
-                 <div class="contactInfo">
-                    <span class="contactName">${contact.Name}</span>
-                    <span class="contactPhone">${contact.Phone}</span>
-                    <a href="mailto:${contact.Email}" class="contactEmail" target="_blank" >${contact.Email}</a>
+     <div class="postsRow" posts_id=${posts.id}">
+        <div class="postsContainer noselect">
+            <div class="postsLayout">
+                 <div class="avatar" style="background-image:url('${posts.Image}')"></div>
+                 <div class="postsInfo">
+                    <span class="postsName">${posts.Title}</span>
+
                 </div>
             </div>
-            <div class="contactCommandPanel">
-                <span class="editCmd cmdIcon fa fa-pencil" editContactId="${contact.Id}" title="Modifier ${contact.Name}"></span>
-                <span class="deleteCmd cmdIcon fa fa-trash" deleteContactId="${contact.Id}" title="Effacer ${contact.Name}"></span>
+            <div class="postsCommandPanel">
+                <span class="editCmd cmdIcon fa fa-pencil" editPostsId="${posts.Id}" title="Modifier ${posts.Name}"></span>
+                <span class="deleteCmd cmdIcon fa fa-trash" deletePostsId="${posts.Id}" title="Effacer ${posts.Name}"></span>
             </div>
         </div>
     </div>           
