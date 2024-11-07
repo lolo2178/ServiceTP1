@@ -73,13 +73,13 @@
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
-.contactRow {
+.postsRow {
     padding: 8px;
     padding-bottom: 0px;
     scroll-snap-align: start;
 }
 
-.contactContainer {
+.postsContainer {
     display: grid;
     grid-template-columns: 4fr 1fr;
     align-items: top;
@@ -96,15 +96,15 @@
     height: 300px;
 }
 
-.contactContainer .cmdIcon {
+.postsContainer .cmdIcon {
     display: none;
 }
 
-.contactContainer:hover .cmdIcon {
+.postsContainer:hover .cmdIcon {
     display: block;
 }
 
-.contactLayout {
+.postsLayout {
     display: grid;
     grid-template-columns: 100px auto;
     padding: 10px;
@@ -112,7 +112,7 @@
     align-items: center;
 }
 
-.contactInfo {
+.postsInfo {
     display: grid;
     grid-template-columns: 1fr;
     padding: 10px;
@@ -120,21 +120,21 @@
     align-items: center;
 }
 
-.contactName {
+.postsName {
     font-size: 1.1rem;
     font-weight: bold;
     color: white;
 }
 
-.contactPhone {
+.postsPhone {
     color: white;
 }
 
-.contactEmail {
+.postsEmail {
     color: white;
 }
 
-.contactCommandPanel {
+.postsCommandPanel {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
@@ -160,7 +160,7 @@
 
 @media screen and (min-width:650px) {
 
-    .contactInfo {
+    .postsInfo {
         grid-template-columns: 40% 35% auto;
     }
 }
@@ -188,7 +188,7 @@ form {
     padding: 20px;
 }
 
-.contactdeleteForm {
+.postsdeleteForm {
     margin: 20px;
 }
 
@@ -206,7 +206,7 @@ input {
     margin-bottom: 20px !important;
 }
 
-.contactContainer a {
+.postsContainer a {
     text-decoration: none !important;
     color: white !important;
 }
