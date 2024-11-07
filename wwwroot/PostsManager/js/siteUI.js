@@ -49,7 +49,7 @@ async function renderPosts() {
     eraseContent();
     if (Posts !== null) {
         Posts.forEach(posts => {
-            $("#content").append(renderPosts(posts));
+            $("#content").append(renderPost(posts));
         });
         restoreContentScrollPosition();
         // Attached click events on command icons
@@ -144,7 +144,7 @@ async function renderDeletePostsForm(id) {
 function newPosts() {
     posts = {};
     posts.Id = 0;
-    posts.Name = "";
+    posts.Title = "";
     posts.Phone = "";
     posts.Email = "";
     return posts;
@@ -235,20 +235,17 @@ function getFormData($form) {
     return jsonObject;
 }
 
-function renderPosts(posts) {
+function renderPost(posts) {
+    console.log(posts)
     return $(`
-     <div class="postsRow" posts_id=${posts.id}">
+     <div class="postsRow" posts_id=${posts.Id}">
         <div class="postsContainer noselect">
             <div class="postsLayout">
-                 <div class="avatar" style="background-image:url('${posts.Image}')"></div>
                  <div class="postsInfo">
-                    <span class="postsName">${posts.Title}</span>
-
+                    <h1">${posts.Title}</h1>
+                    <p>${posts.Category}</p>
+                    <p>${posts.Text}</p>
                 </div>
-            </div>
-            <div class="postsCommandPanel">
-                <span class="editCmd cmdIcon fa fa-pencil" editPostsId="${posts.Id}" title="Modifier ${posts.Name}"></span>
-                <span class="deleteCmd cmdIcon fa fa-trash" deletePostsId="${posts.Id}" title="Effacer ${posts.Name}"></span>
             </div>
         </div>
     </div>           
