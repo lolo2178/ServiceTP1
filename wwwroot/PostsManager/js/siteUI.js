@@ -235,16 +235,34 @@ function getFormData($form) {
     return jsonObject;
 }
 
+function convertToFrenchDate(numeric_date) {
+    date = new Date(numeric_date);
+    var options = { year: 'numeric', month: 'long', day: 'numeric' };
+    var opt_weekday = { weekday: 'long' };
+    var weekday = toTitleCase(date.toLocaleDateString("fr-FR", opt_weekday));
+
+    function toTitleCase(str) {
+        return str.replace(
+            /\w\S*/g,
+            function (txt) {
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            }
+        );
+    }
+    return weekday + " le " + date.toLocaleDateString("fr-FR", options) + " @ " + date.toLocaleTimeString("fr-FR");
+}
+
 function renderPost(posts) {
-    console.log(posts)
+    console.log(posts);
     return $(`
      <div class="postsRow" posts_id=${posts.Id}">
         <div class="postsContainer noselect">
             <div class="postsLayout">
                  <div class="postsInfo">
-                    <h1">${posts.Title}</h1>
+                    <h1>${posts.Title}</h1>
                     <p>${posts.Category}</p>
                     <p>${posts.Text}</p>
+                    <span>${convertToFrenchDate(posts.Creation)}</span>
                 </div>
             </div>
         </div>
