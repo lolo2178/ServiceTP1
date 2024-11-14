@@ -11,14 +11,14 @@ body {
 .PostRow {
     border: 1px solid #ddd;
     padding: 16px;
-    margin: 8px auto; /* Centered with auto margins */
+    margin: 16px auto; /* Centered with auto margins */
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    max-width: 90%; /* Limit max width to fit smaller screens */
-    width: 600px; /* Full width on smaller screens, limited on larger screens */
+    max-width: 90%;
+    width: 600px;
 }
 
 /* Post Layout */
@@ -29,39 +29,33 @@ body {
 
 .PostLayout {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-    flex-wrap: wrap; /* Wrap elements naturally on smaller screens */
-    gap: 8px; /* Adds spacing when items wrap */
-}
-
-.Post {
-    flex-grow: 1;
+    flex-direction: column;
+    gap: 8px; /* Space between elements */
 }
 
 .PostTitle {
     font-size: 1.5em;
     font-weight: bold;
     color: #333;
-    flex: 1 1 100%; /* Occupies full width on smaller screens */
-    min-width: 0; /* Allows it to shrink flexibly */
+    margin-bottom: 8px;
 }
 
 .PostCategory {
     font-size: 0.9em;
     color: #666;
-    margin-left: 8px;
-    flex: 0 1 auto;
+    margin: 8px 0;
 }
 
 /* Post Image */
-.PostImage {
-    width: 100%; /* Full width inside container */
-    max-width: 600px; /* Limits to 600px on larger screens */
-    height: auto; /* Maintains aspect ratio */
-    object-fit: cover; /* Crops image to fit within width/height */
+.PostImageContainer {
     margin: 8px 0;
+}
+
+.PostImage {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    object-fit: cover;
     border-radius: 4px;
 }
 
@@ -70,14 +64,6 @@ body {
     font-size: 1em;
     color: #555;
     margin-top: 8px;
-    max-width: 100%; /* Avoids overflow on smaller screens */
-}
-
-/* Date Display */
-.PostDate {
-    font-size: 0.9em;
-    color: #999;
-    margin-bottom: 8px;
 }
 
 /* Command Panel Icons */
@@ -85,8 +71,8 @@ body {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-    margin-top: 8px;
-    flex-wrap: wrap; /* Allows wrapping of icons */
+    margin-top: 16px;
+    flex-wrap: wrap;
 }
 
 .cmdIcon {
@@ -94,18 +80,23 @@ body {
     font-size: 1.2em;
     color: #888;
     transition: color 0.2s ease;
-    flex: 0 1 auto; /* Allows icons to wrap naturally */
 }
 
 .cmdIcon:hover {
     color: #333;
 }
 
+/* Button Styles */
+.btn {
+    margin: 8px 4px;
+}
+
 /* Responsive font sizing */
-.PostTitle, .PostText, .PostDate, .PostCategory {
-    font-size: clamp(1em, 2.5vw, 1.5em); /* Adjusts based on viewport */
+.PostTitle, .PostText, .PostCategory {
+    font-size: clamp(1em, 2.5vw, 1.5em);
 }
 
 .cmdIcon {
-    font-size: clamp(1em, 2vw, 1.2em); /* Responsive sizing for icons */
+    font-size: clamp(1em, 2vw, 1.2em);
 }
+
