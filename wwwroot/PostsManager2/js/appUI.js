@@ -192,26 +192,30 @@ async function renderDeletePostForm(id) {
         if (Post !== null) {
             $("#postForm").append(`
         <div class="PostdeleteForm">
-            <h4>Effacer le favori suivant?</h4>
-            <br>
-            <div class="PostRow" id=${Post.Id}">
-                <div class="PostContainer noselect">
-                    <div class="PostLayout">
-                        <div class="Post">=
-                            <span class="PostTitle">${Post.Title}</span>
-                        </div>
-                        <span class="PostCategory">${Post.Category}</span>
-                    </div>
-                    <div class="PostCommandPanel">
-                        <span class="editCmd cmdIcon fa fa-pencil" editPostId="${Post.Id}" title="Modifier ${Post.Title}"></span>
-                        <span class="deleteCmd cmdIcon fa fa-trash" deletePostId="${Post.Id}" title="Effacer ${Post.Title}"></span>
-                    </div>
+
+    <div class="PostRow" id="${Post.Id}">
+    <h4>Effacer le post suivant?</h4>
+    <br>
+        <div class="PostContainer noselect">
+            <div class="PostLayout">
+                <div class="Post">
+                    <div class="PostTitle">${Post.Title}</div>
+                    <div class="PostCategory">${Post.Category}</div>
+                    <div class="PostImageContainer"><img src="${Post.Image}" class="PostImage" /></div>
+                    <div class="PostText">${Post.Text}</div>
                 </div>
-            </div>   
-            <br>
-            <input type="button" value="Effacer" id="deletePost" class="btn btn-primary">
-            <input type="button" value="Annuler" id="cancel" class="btn btn-secondary">
-        </div>    
+            </div>
+            <div class="PostCommandPanel">
+                <span class="editCmd cmdIcon fa fa-pencil" editPostId="${Post.Id}" title="Modifier ${Post.Title}"></span>
+                <span class="deleteCmd cmdIcon fa fa-trash" deletePostId="${Post.Id}" title="Effacer ${Post.Title}"></span>
+            </div>
+        </div>
+        <br>
+    <input type="button" value="Effacer" id="deletePost" class="btn btn-primary">
+    <input type="button" value="Annuler" id="cancel" class="btn btn-secondary">
+    </div>   
+</div>
+  
         `);
             $('#deletePost').on("click", async function () {
                 await Posts_API.Delete(Post.Id);
@@ -341,7 +345,7 @@ function renderPost(Post) {
     `);
 }
 function formatDate(timestamp) {
-    const date = new Date(timestamp * 1000); 
+    const date = new Date(timestamp * 1000);
     return date.toLocaleDateString('en-US', {
         year: 'numeric', month: 'short', day: 'numeric'
     });
