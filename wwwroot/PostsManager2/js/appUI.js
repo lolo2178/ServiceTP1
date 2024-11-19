@@ -151,7 +151,7 @@ async function renderPosts(queryString) {
     if (selectedCategory !== "") queryString += "&category=" + selectedCategory;
     
     // Add search query filter if a search is entered
-    if (searchQuery !== "") queryString += "&search=" + searchQuery;
+    if (searchQuery !== "") queryString += "&keywords=" + searchQuery;
 
     console.log(queryString);
 
