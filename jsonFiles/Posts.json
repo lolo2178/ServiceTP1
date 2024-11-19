@@ -1,1 +1,34 @@
-[{"Id":2,"Title":"test1","Text":"nouvelle #1","Category":"tech","Image":"bird.jpg","Creation":1},{"Id":3,"Title":"test2","Text":"nouvelle #1","Category":"tech","Image":"bird.jpg","Creation":2},{"Id":4,"Title":"test3","Text":"nouvelle #1","Category":"tech","Image":"bird.jpg","Creation":3},{"Id":5,"Title":"test4","Text":"nouvelle #1","Category":"tech","Image":"bird.jpg","Creation":4},{"Id":6,"Title":"test5","Text":"nouvelle #1","Category":"tech","Image":"bird.jpg","Creation":5},{"Id":7,"Title":"testte","Text":"nouvelle #1","Category":"tech","Image":"bird.jpg","Creation":1732031754}]
+[
+    {
+        "Id": 1,
+        "Title": "Russia's Putin signs updated doctrine that lowers threshold for using nuclear weapons",
+        "Text": "Russian President Vladimir Putin on Tuesday signed a revised nuclear doctrine declaring that a conventional attack on Russia by any country that is supported by a nuclear power will be considered a joint attack on his country.  Putin's endorsement of the new nuclear deterrent policy comes on the 1,000th day after he sent troops into Ukraine on Feb. 24, 2022. Putin first announced changes in the nuclear doctrine in September, when he chaired a meeting discussing the proposed revisions, but the signing follows an apparent decision by the U.S. to let Ukraine strike targets inside Russia with American-supplied longer-range missiles, which was first learned in published reports on the weekend.",
+        "Category": "World",
+        "Image": "36965480-a69e-11ef-a91c-ed35a69b6225.avif",
+        "Creation": 1732038392
+    },
+    {
+        "Id": 2,
+        "Title": "Inflation ticked up in October after previous month's steep drop in gas prices",
+        "Text": "Canada's inflation rate ticked up to two per cent in October, Statistics Canada said on Tuesday. The consumer price index had previously hit 1.6 per cent in September, thanks to a steep decline in gas prices.  Gas prices fell again in October, although to a lesser extent — and with gasoline excluded, all-items inflation came in at 2.2 per cent, the same as in September and August.",
+        "Category": "Business",
+        "Image": "5e70f780-a69e-11ef-a91c-ed35a69b6225.avif",
+        "Creation": 1732038459
+    },
+    {
+        "Id": 3,
+        "Title": "Windsor landlord says tenants who haven't paid months of rent have now paused eviction order",
+        "Text": "After more than 16 months of his tenants not paying rent, Michael Portman was hoping the problem had been solved when the provincial board that oversees rental issues sided in his favour and served the tenants an eviction notice.",
+        "Category": "Windsor",
+        "Image": "18a0ffb0-a69f-11ef-a91c-ed35a69b6225.avif",
+        "Creation": 1732038771
+    },
+    {
+        "Id": 4,
+        "Title": "Some Arab Americans who voted for Trump are concerned about his picks for key positions",
+        "Text": "Meanwhile, the two Trump advisers who led his outreach to Arab Americans have not secured positions in the administration yet.",
+        "Category": "World",
+        "Image": "7f783550-a69f-11ef-a91c-ed35a69b6225.avif",
+        "Creation": 1732038944
+    }
+]
