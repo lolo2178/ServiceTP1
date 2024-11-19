@@ -281,6 +281,7 @@ function newPost() {
     Post.Id = 0;
     Post.Title = "";
     Post.Category = "";
+    Post.Text = "";
     return Post;
 }
 function renderPostForm(Post = null) {
@@ -288,7 +289,10 @@ function renderPostForm(Post = null) {
     let create = Post == null;
     let favicon = `<div class="big-favicon"></div>`;
     if (create)
+    {
         Post = newPost();
+        Post.Image = "images/no-avatar.png";
+    }
     $("#actionTitle").text(create ? "Création" : "Modification");
     $("#postForm").show();
     $("#postForm").empty();
@@ -308,6 +312,15 @@ function renderPostForm(Post = null) {
                 InvalidMessage="Le titre comporte un caractère illégal"
                 value="${Post.Title}"
             />
+            <label for="Text" class="form-label">Texte </label>
+            <input 
+                class="form-control"
+                name="Text"
+                id="Text"
+                placeholder="Texte"
+                required
+                value="${Post.Text}"
+            />
             <label for="Category" class="form-label">Catégorie </label>
             <input 
                 class="form-control"
@@ -317,22 +330,33 @@ function renderPostForm(Post = null) {
                 required
                 value="${Post.Category}"
             />
+            <label class="form-label">Image </label>
+            <div   class='imageUploader' 
+                   newImage='${create}' 
+                   controlId='Image' 
+                   imageSrc='${Post.Image}' 
+                   waitingImage="Loading_icon.gif">
+            </div>
+            
             <br>
             <input type="submit" value="Enregistrer" id="savePost" class="btn btn-primary">
             <input type="button" value="Annuler" id="cancel" class="btn btn-secondary">
         </form>
     `);
+    initImageUploaders();
     initFormValidation();
+    
 
-    $('#PostForm').on("submit", async function (event) {
+    $('#postForm').on("submit", async function (event) {
         event.preventDefault();
-        let Post = getFormData($("#PostForm"));
-        Post = await Posts_API.Save(Post, create);
+        let post = getFormData($("#PostForm"));
+        post.Creation = Date.now();
+        let result = await Posts_API.Save(post, create);
         if (!Posts_API.error) {
             showPosts();
             await pageManager.update(false);
             compileCategories();
-            pageManager.scrollToElem(Post.Id);
+            pageManager.scrollToElem(post.Id);
         }
         else
             renderError("Une erreur est survenue!");

@@ -172,18 +172,18 @@ function renderPostsForm(posts = null) {
                 required
                 RequireMessage="Veuillez entrer un nom"
                 InvalidMessage="Le nom comporte un caractère illégal" 
-                value="${posts.Name}"
+                value="${posts.Title}"
             />
-            <label for="Phone" class="form-label">Téléphone </label>
+            <label for="Text" class="form-label">Texte </label>
             <input
-                class="form-control Phone"
-                name="Phone"
-                id="Phone"
-                placeholder="(000) 000-0000"
+                class="form-control Alpha"
+                name="Text"
+                id="Text"
+                placeholder="text
                 required
-                RequireMessage="Veuillez entrer votre téléphone" 
-                InvalidMessage="Veuillez entrer un téléphone valide"
-                value="${posts.Phone}" 
+                RequireMessage="Veuillez entrer le texte" 
+                InvalidMessage="Veuillez entrer un texte valide"
+                value="${posts.Text}" 
             />
             <label for="Email" class="form-label">Courriel </label>
             <input 
@@ -194,14 +194,14 @@ function renderPostsForm(posts = null) {
                 required
                 RequireMessage="Veuillez entrer votre courriel" 
                 InvalidMessage="Veuillez entrer un courriel valide"
-                value="${posts.Email}"
+                value="${posts.Category}"
             />
             <!-- nécessite le fichier javascript 'imageControl.js' -->
             <label class="form-label">Avatar </label>
             <div   class='imageUploader' 
                    newImage='${create}' 
                    controlId='Avatar' 
-                   imageSrc='${posts.Avatar}' 
+                   imageSrc='${posts.Image}' 
                    waitingImage="Loading_icon.gif">
             </div>
             <hr>
