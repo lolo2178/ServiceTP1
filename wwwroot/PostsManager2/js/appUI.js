@@ -320,7 +320,8 @@ function renderPostForm(Post = null) {
 
     $('#postForm').on("submit", async function (event) {
         event.preventDefault();
-        let post = getFormData($("#postForm"));
+        let post = getFormData($("#PostForm"));
+        post.Creation = Date.now();
         let result = await Posts_API.Save(post, create);
         if (!Posts_API.error) {
             showPosts();
