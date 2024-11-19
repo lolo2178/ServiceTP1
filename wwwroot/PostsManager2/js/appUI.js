@@ -5,6 +5,7 @@ let currentETag = "";
 let hold_Periodic_Refresh = false;
 let pageManager;
 let itemLayout;
+let searchQuery = "";
 
 let waiting = null;
 let waitingGifTrigger = 2000;
@@ -20,6 +21,12 @@ function removeWaitingGif() {
 }
 
 Init_UI();
+let keywordSearch = "";
+
+$('#keywordSearch').on('input', function () {
+    keywordSearch = $(this).val().trim();
+    pageManager.reset();
+});
 
 async function Init_UI() {
     itemLayout = {
@@ -127,35 +134,57 @@ async function compileCategories() {
         }
     }
 }
+
+
+
+$('#searchBar').on('input', function () {
+    searchQuery = $(this).val().trim().toLowerCase();
+    pageManager.reset();
+});
+
 async function renderPosts(queryString) {
     let endOfData = false;
-    queryString += "&sort=category";
-    if (selectedCategory != "") queryString += "&category=" + selectedCategory;
+    
+    queryString += "&sort=Creation,desc";
+    
+    // Add selected category filter if it's specified
+    if (selectedCategory !== "") queryString += "&category=" + selectedCategory;
+    
+    // Add search query filter if a search is entered
+    if (searchQuery !== "") queryString += "&search=" + searchQuery;
+
+    console.log(queryString);
+
     addWaitingGif();
+
     let response = await Posts_API.Get(queryString);
     if (!Posts_API.error) {
         currentETag = response.ETag;
         let Posts = response.data;
+
         if (Posts.length > 0) {
             Posts.forEach(Post => {
                 $("#itemsPanel").append(renderPost(Post));
             });
-            $(".editCmd").off();
-            $(".editCmd").on("click", function () {
+            
+            // Attach event handlers for editing and deleting posts
+            $(".editCmd").off().on("click", function () {
                 renderEditPostForm($(this).attr("editPostId"));
             });
-            $(".deleteCmd").off();
-            $(".deleteCmd").on("click", function () {
+            $(".deleteCmd").off().on("click", function () {
                 renderDeletePostForm($(this).attr("deletePostId"));
             });
-        } else
+        } else {
             endOfData = true;
+        }
     } else {
         renderError(Posts_API.currentHttpError);
     }
+
     removeWaitingGif();
     return endOfData;
 }
+
 
 function renderError(message) {
     hidePosts();
